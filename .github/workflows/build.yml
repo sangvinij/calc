@@ -1,9 +1,8 @@
-os: linux
-dist: focal
-language: python
+name: CI
+on:
+  push:
+    branches: [ master ]
 
-python:
-  - 3.10
 
 install:
   - sudo apt -y install python3-distutils
