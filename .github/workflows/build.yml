@@ -2,7 +2,9 @@ name: CI
 on:
   push:
     branches: [ master ]
-
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
 install:
   - sudo apt -y install python3-distutils
