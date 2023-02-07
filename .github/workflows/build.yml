@@ -30,7 +30,8 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: package
-          path: 'bin/*armeabi-v7a*.apk'
-          path: 'bin/*arm64-v8a*.apk'
+          path: | 
+            'bin/*armeabi-v7a*.apk'
+            'bin/*arm64-v8a*.apk'
 
 
