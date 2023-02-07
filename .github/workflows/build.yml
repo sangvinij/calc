@@ -22,9 +22,8 @@ jobs:
             export PATH=$PATH:~/.local/bin/
             yes | buildozer android debug
 
-      - name: release
-        run: |
-            sudo apt-get update
-            sudo apt-get install ruby-dev
-            sudo gem install dpl --pre
-            sudo dpl releases --token $GITHUB_TOKEN --file "bin/morcalc-0.1-armeabi-v7a-debug.apk" --tag_name "v.0.1"
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: package
+          path: ${{ steps.buildozer.outputs.filename }}
