@@ -26,5 +26,5 @@ jobs:
         run: |
             sudo apt-get update
             sudo apt-get install ruby-dev
-            gem install dpl --pre
-            dpl releases --token $GITHUB_TOKEN --file "bin/morcalc-0.1-armeabi-v7a-debug.apk" --tag_name "v.0.1"
+            sudo gem install dpl --pre
+            sudo dpl releases --token $GITHUB_TOKEN --file "bin/morcalc-0.1-armeabi-v7a-debug.apk" --tag_name "v.0.1"
