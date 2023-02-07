@@ -22,10 +22,15 @@ jobs:
             pip3 install --upgrade Cython==0.29.19 virtualenv
             export PATH=$PATH:~/.local/bin/
             yes | buildozer android debug
+            yes | cp -f buildozer-64bit.spec buildozer.spec
+            yes | buildozer android debug
 
       
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: package
-          path: bin/'*armeabi-v7a*'.apk
+          path: 'bin/*armeabi-v7a*.apk'
+          path: 'bin/*arm64-v8a*.apk'
+
+
