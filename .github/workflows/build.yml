@@ -10,12 +10,11 @@ jobs:
 
       - name: Build with Buildozer
         run: |
-            sudo apt-get update
+            git clone https://github.com/kivy/buildozer.git
+            cd buildozer
             sudo apt-get install build-essential
             sudo apt-get install libstdc++6
             sudo apt-get install aidl
-            git clone https://github.com/kivy/buildozer.git
-            cd buildozer
             sudo python3 setup.py install
             cd ..
 
