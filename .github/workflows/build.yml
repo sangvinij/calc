@@ -27,11 +27,9 @@ jobs:
 
       
       - name: Upload artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: package
-          path: | 
-            'bin/*armeabi-v7a*.apk'
-            'bin/*arm64-v8a*.apk'
+          path: 'bin/*.apk'
 
 
