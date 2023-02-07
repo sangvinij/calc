@@ -1,5 +1,7 @@
 name: CI
-on: push
+on:
+  push:
+    branches: [ master ]
 
 jobs:
   build:
@@ -8,25 +10,48 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build with Buildozer
+      # used to cache dependencies with a timeout
+      - name: Get Date
+        id: get-date
         run: |
-            git clone https://github.com/kivy/buildozer.git
-            cd buildozer
-            sudo python3 setup.py install
-            cd ..
+          echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
+        shell: bash
 
-
-            sudo apt-get update
-            sudo apt-get install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
-            pip3 install --upgrade Cython==0.29.19 virtualenv
-            export PATH=$PATH:~/.local/bin/
-            yes | buildozer android debug deploy
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      - name: Cache Buildozer global directory
+        uses: actions/cache@v2
         with:
-          tag_name: ${{ github.run_number }}
-          release_name: Release ${{ github.run_number }}
+          path: .buildozer_global
+          key: buildozer-global-${{ hashFiles('buildozer.spec') }} # Replace with your path
+
+      - uses: actions/cache@v2
+        with:
+          path: .buildozer
+          key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashFiles('buildozer.spec') }}
+
+      - name: Build with Buildozer
+        uses: ArtemSBulgakov/buildozer-action@v1
+        id: buildozer
+        with:
+          command: buildozer android debug
+          buildozer_version: master
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: package
+          path: ${{ steps.buildozer.outputs.filename }}
+
+      
+      - name: Build with Buildozer64
+        uses: ArtemSBulgakov/buildozer-action@v1
+        id: buildozer
+        with:
+          run: yes | cp -f buildozer-64bit.spec buildozer.spec
+          command: buildozer android debug
+          buildozer_version: master
+
+      - name: Upload artifacts64
+        uses: actions/upload-artifact@v2
+        with:
+          name: package
+          path: ${{ steps.buildozer.outputs.filename }}
