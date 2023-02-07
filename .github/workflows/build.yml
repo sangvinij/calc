@@ -13,6 +13,7 @@ jobs:
             git clone https://github.com/kivy/buildozer.git
             cd buildozer
             sudo python3 setup.py install
+            cd ..
 
 
             sudo apt-get update
