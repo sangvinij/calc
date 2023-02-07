@@ -42,7 +42,7 @@ jobs:
       
       - name: Build with Buildozer64
         uses: ArtemSBulgakov/buildozer-action@v1
-        id: buildozer
+        id: buildozer64
         with:
           run: yes | cp -f buildozer-64bit.spec buildozer.spec
           command: buildozer android debug
