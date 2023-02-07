@@ -28,4 +28,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: package
-          path: bin/morcalc-0.1-armeabi-v7a-debug.apk
+          path: 'bin/*armeabi-v7a*.apk'
