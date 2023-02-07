@@ -10,14 +10,13 @@ jobs:
 
       - name: Build with Buildozer
         run: |
-          - git clone https://github.com/kivy/buildozer.git
-          - cd buildozer
-          - python3 setup.py install
+            git clone https://github.com/kivy/buildozer.git
+            cd buildozer
+            python3 setup.py install
 
 
-          - sudo apt-get update
-          - sudo apt-get install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
-          - pip3 install --upgrade Cython==0.29.19 virtualenv
-          - export PATH=$PATH:~/.local/bin/
-          - yes | cp -f buildozer-32bit.spec buildozer.spec
-          - yes | buildozer android debug deploy run
+            sudo apt-get update
+            sudo apt-get install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
+            pip3 install --upgrade Cython==0.29.19 virtualenv
+            export PATH=$PATH:~/.local/bin/
+            buildozer android debug deploy run
