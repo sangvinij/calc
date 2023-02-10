@@ -9,7 +9,6 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build with Buildozer
-        id: buildozer
         run: |
             git clone https://github.com/kivy/buildozer.git
             cd buildozer
